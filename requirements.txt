@@ -10,3 +10,4 @@ pandas==1.5.3
 tensorflow==2.12.1
 tensorflow-io-gcs-filesystem==0.32.0
 typer==0.3.2
+werkzeug==2.0.3
