@@ -1,4 +1,4 @@
-flask==2.2.5
+flask==2.0.3
 spleeter==2.4.2
 librosa==0.10.1
 numpy==1.23.5
@@ -10,4 +10,3 @@ pandas==1.5.3
 tensorflow==2.12.1
 tensorflow-io-gcs-filesystem==0.32.0
 typer==0.3.2
-
