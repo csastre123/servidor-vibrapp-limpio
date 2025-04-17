@@ -38,11 +38,13 @@ def analizar():
 
         ruta_vocals = os.path.join(carpeta, "cancion", "vocals.wav")
 
-        subprocess.run([
-            "python3", "extraer_tarareo.py",
-            ruta_vocals,
-            f"{carpeta}/melodia.json"
-        ], check=True)
+        result = subprocess.run(
+            ["python3", "extraer_tarareo.py", ruta_vocals, f"{carpeta}/melodia.json"],
+            capture_output=True, text=True
+        )
+        if result.returncode != 0:
+            return f"❌ Error extraer_tarareo.py:\n{result.stderr}", 500
+
 
         subprocess.run([
             "python3", "simplificar_melodia.py",
