@@ -37,6 +37,9 @@ def analizar():
         ], check=True)
 
         ruta_vocals = os.path.join(carpeta, "cancion", "vocals.wav")
+        if not os.path.exists(ruta_vocals):
+            return f"❌ Error: spleeter no generó vocals.wav. Revisa si el archivo subido es válido.", 500
+
 
         result = subprocess.run(
             ["python3", "extraer_tarareo.py", ruta_vocals, f"{carpeta}/melodia.json"],
