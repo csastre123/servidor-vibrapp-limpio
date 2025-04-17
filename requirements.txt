@@ -9,4 +9,5 @@ norbert==0.2.1
 pandas==1.5.3
 tensorflow==2.12.1
 tensorflow-io-gcs-filesystem==0.32.0
-typer==0.7.0
+typer==0.3.2
+
