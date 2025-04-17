@@ -40,10 +40,14 @@ def analizar():
 
         result = subprocess.run(
             ["python3", "extraer_tarareo.py", ruta_vocals, f"{carpeta}/melodia.json"],
-            capture_output=True, text=True
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
         )
+
         if result.returncode != 0:
             return f"❌ Error extraer_tarareo.py:\n{result.stderr}", 500
+
 
 
         subprocess.run([
