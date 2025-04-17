@@ -1,16 +1,29 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, after_this_request
 import subprocess
 import os
 import uuid
+import shutil
 
 app = Flask(__name__)
 
 @app.route('/analizar', methods=['POST'])
 def analizar():
     archivo = request.files['archivo']
+
+    # Validar que el archivo sea un MP3
+    if not archivo.filename.lower().endswith('.mp3'):
+        return "⚠️ El archivo debe tener formato .mp3", 400
+
+    # Crear carpeta temporal única
     nombre_base = str(uuid.uuid4())
     carpeta = f"./temp/{nombre_base}"
     os.makedirs(carpeta, exist_ok=True)
+
+    # Asegurar limpieza después del envío
+    @after_this_request
+    def cleanup(response):
+        shutil.rmtree(carpeta)
+        return response
 
     ruta_mp3 = os.path.join(carpeta, "cancion.mp3")
     archivo.save(ruta_mp3)
@@ -43,4 +56,4 @@ def analizar():
         return f"❌ Error durante el análisis: {str(e)}", 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000, debug=True)
